@@ -1,0 +1,15 @@
+<GuiXml>
+	<Controls>
+		<TopLevelControl name="Gnevsmerism_DawnWarriorMode_Control" mouseEnabled="false" movable="false" clampedToScreen="true">
+			<Dimensions x="336" y="448"/>
+			<Anchor point="TOPRIGHT" relativeTo="GuiRoot" relativePoint="CENTER" offsetX="64" offsetY="-80"/>
+			<Controls>
+				<Backdrop name="$(parent)Backdrop" centerColor="FF0000" edgeColor="FF0000" alpha="0.25">
+					<Dimensions x="336" y="448"/>
+					<Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT"/>
+					<Edge edgeSize="4"/>
+				</Backdrop>
+			</Controls>
+		</TopLevelControl>
+	</Controls>
+</GuiXml>
