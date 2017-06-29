@@ -20,5 +20,7 @@ Libs/LibAddonMenu-2.0/controls/panel.lua
 Libs/LibAddonMenu-2.0/controls/slider.lua
 Libs/LibAddonMenu-2.0/controls/submenu.lua
 Libs/LibAddonMenu-2.0/controls/texture.lua
+Strings.lua
 Gnevsmerism.xml
 Gnevsmerism.lua
+Bindings.xml

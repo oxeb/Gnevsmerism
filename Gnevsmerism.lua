@@ -9,10 +9,22 @@ Gnevsmerism.mainBarActive = true
 Gnevsmerism.settingsName = "Gnevsmerism"
 Gnevsmerism.settingsAuthor = "Gnevsyrom"
 Gnevsmerism.settingsCommand = "/gnmc"
-Gnevsmerism.settingsVersion = "0.0.1"
+Gnevsmerism.settingsVersion = "0.0.2"
 
 Gnevsmerism.default = {
 	dawnWarriorMode = "On",
+	dawnWarriorModeMainBarRed = 1.0,
+	dawnWarriorModeMainBarGreen = 0.0,
+	dawnWarriorModeMainBarBlue = 0.0,
+	dawnWarriorModeMainBarAlpha = 1.0,
+	dawnWarriorModeBackupBarRed = 0.0,
+	dawnWarriorModeBackupBarGreen = 0.0,
+	dawnWarriorModeBackupBarBlue = 1.0,
+	dawnWarriorModeBackupBarAlpha = 1.0,
+	dawnWarriorModeTop = -80,
+	dawnWarriorModeRight = 64,
+	dawnWarriorModeWidth = 336,
+	dawnWarriorModeHeight = 448,
 }
 
 function Gnevsmerism:ProcessDawnWarriorMode()
@@ -25,13 +37,33 @@ function Gnevsmerism:ProcessDawnWarriorMode()
 	if self.savedVariables.dawnWarriorMode ~= "On" then
 		Gnevsmerism_DawnWarriorMode_Control:SetHidden(true)
 	else
+		Gnevsmerism_DawnWarriorMode_Control:ClearAnchors()
+		Gnevsmerism_DawnWarriorMode_Control:SetAnchor(TOPRIGHT, GuiRoot, CENTER, self.savedVariables.dawnWarriorModeRight, self.savedVariables.dawnWarriorModeTop)
+		Gnevsmerism_DawnWarriorMode_Control:SetDimensions(self.savedVariables.dawnWarriorModeWidth, self.savedVariables.dawnWarriorModeHeight)
+		Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetDimensions(self.savedVariables.dawnWarriorModeWidth, self.savedVariables.dawnWarriorModeHeight)
 		Gnevsmerism_DawnWarriorMode_Control:SetHidden(false)
 		if Gnevsmerism.mainBarActive then
-			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetEdgeColor(1.0, 0.0, 0.0, 1.0)
-			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetCenterColor(1.0, 0.0, 0.0, 1.0)
+			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetEdgeColor(
+				self.savedVariables.dawnWarriorModeMainBarRed,
+				self.savedVariables.dawnWarriorModeMainBarGreen,
+				self.savedVariables.dawnWarriorModeMainBarBlue,
+				self.savedVariables.dawnWarriorModeMainBarAlpha)
+			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetCenterColor(
+				self.savedVariables.dawnWarriorModeMainBarRed,
+				self.savedVariables.dawnWarriorModeMainBarGreen,
+				self.savedVariables.dawnWarriorModeMainBarBlue,
+				self.savedVariables.dawnWarriorModeMainBarAlpha)
 		else
-			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetEdgeColor(0.0, 0.0, 1.0, 1.0)
-			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetCenterColor(0.0, 0.0, 1.0, 1.0)
+			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetEdgeColor(
+				self.savedVariables.dawnWarriorModeBackupBarRed,
+				self.savedVariables.dawnWarriorModeBackupBarGreen,
+				self.savedVariables.dawnWarriorModeBackupBarBlue,
+				self.savedVariables.dawnWarriorModeBackupBarAlpha)
+			Gnevsmerism_DawnWarriorMode_ControlBackdrop:SetCenterColor(
+				self.savedVariables.dawnWarriorModeBackupBarRed,
+				self.savedVariables.dawnWarriorModeBackupBarGreen,
+				self.savedVariables.dawnWarriorModeBackupBarBlue,
+				self.savedVariables.dawnWarriorModeBackupBarAlpha)
 		end
 	end
 end
@@ -64,6 +96,74 @@ function Gnevsmerism:SetDawnWarriorMode(value)
 	Gnevsmerism:ProcessDawnWarriorMode()
 end
 
+function Gnevsmerism:GetDawnWarriorModeMainBarColor()
+	local r = self.savedVariables.dawnWarriorModeMainBarRed
+	local g = self.savedVariables.dawnWarriorModeMainBarGreen
+	local b = self.savedVariables.dawnWarriorModeMainBarBlue
+	local a = self.savedVariables.dawnWarriorModeMainBarAlpha
+	return r, g, b, a
+end
+
+function Gnevsmerism:SetDawnWarriorModeMainBarColor(r, g, b, a)
+	self.savedVariables.dawnWarriorModeMainBarRed = r
+	self.savedVariables.dawnWarriorModeMainBarGreen = g
+	self.savedVariables.dawnWarriorModeMainBarBlue = b
+	self.savedVariables.dawnWarriorModeMainBarAlpha = a
+	self:ProcessDawnWarriorMode()
+end
+
+function Gnevsmerism:GetDawnWarriorModeBackupBarColor()
+	local r = self.savedVariables.dawnWarriorModeBackupBarRed
+	local g = self.savedVariables.dawnWarriorModeBackupBarGreen
+	local b = self.savedVariables.dawnWarriorModeBackupBarBlue
+	local a = self.savedVariables.dawnWarriorModeBackupBarAlpha
+	return r, g, b, a
+end
+
+function Gnevsmerism:SetDawnWarriorModeBackupBarColor(r, g, b, a)
+	self.savedVariables.dawnWarriorModeBackupBarRed = r
+	self.savedVariables.dawnWarriorModeBackupBarGreen = g
+	self.savedVariables.dawnWarriorModeBackupBarBlue = b
+	self.savedVariables.dawnWarriorModeBackupBarAlpha = a
+	self:ProcessDawnWarriorMode()
+end
+
+function Gnevsmerism:GetDawnWarriorModeRight()
+	return self.savedVariables.dawnWarriorModeRight
+end
+
+function Gnevsmerism:SetDawnWarriorModeRight(value)
+	self.savedVariables.dawnWarriorModeRight = value
+	self:ProcessDawnWarriorMode()
+end
+
+function Gnevsmerism:GetDawnWarriorModeTop()
+	return self.savedVariables.dawnWarriorModeTop
+end
+
+function Gnevsmerism:SetDawnWarriorModeTop(value)
+	self.savedVariables.dawnWarriorModeTop = value
+	self:ProcessDawnWarriorMode()
+end
+
+function Gnevsmerism:GetDawnWarriorModeWidth()
+	return self.savedVariables.dawnWarriorModeWidth
+end
+
+function Gnevsmerism:SetDawnWarriorModeWidth(value)
+	self.savedVariables.dawnWarriorModeWidth = value
+	self:ProcessDawnWarriorMode()
+end
+
+function Gnevsmerism:GetDawnWarriorModeHeight()
+	return self.savedVariables.dawnWarriorModeHeight
+end
+
+function Gnevsmerism:SetDawnWarriorModeHeight(value)
+	self.savedVariables.dawnWarriorModeHeight = value
+	self:ProcessDawnWarriorMode()
+end
+
 function Gnevsmerism:Settings()
 	local settingsPanelData = {
 		type = "panel",
@@ -94,10 +194,113 @@ function Gnevsmerism:Settings()
 			width = "full",
 			default = self.default.dawnWarriorMode,
 		},
+		[4] = {
+			type = "header",
+			name = "DawnWarrior Mode",
+		},
+		[5] = {
+			type = "description",
+			text = "Configure DawnWarrior Mode",
+		},
+		[6] = {
+			type = "colorpicker",
+			name = "Main Bar Color",
+			tooltip = "",
+			getFunc = function()
+				local r, g, b, a = Gnevsmerism:GetDawnWarriorModeMainBarColor() 
+				return r, g, b, a
+			 end,
+			setFunc = function(r, g, b, a)
+				Gnevsmerism:SetDawnWarriorModeMainBarColor(r, g, b, a)
+			end,
+			width = "full",
+			default = {
+				r = self.default.dawnWarriorModeMainBarRed,
+				g = self.default.dawnWarriorModeMainBarGreen,
+				b = self.default.dawnWarriorModeMainBarBlue,
+				a = self.default.dawnWarriorModeMainBarAlpha,
+			},
+		},
+		[7] = {
+			type = "colorpicker",
+			name = "Backup Bar Color",
+			tooltip = "",
+			getFunc = function()
+				local r, g, b, a = Gnevsmerism:GetDawnWarriorModeBackupBarColor() 
+				return r, g, b, a
+			 end,
+			setFunc = function(r, g, b, a)
+				Gnevsmerism:SetDawnWarriorModeBackupBarColor(r, g, b, a)
+			end,
+			width = "full",
+			default = {
+				r = self.default.dawnWarriorModeBackupBarRed,
+				g = self.default.dawnWarriorModeBackupBarGreen,
+				b = self.default.dawnWarriorModeBackupBarBlue,
+				a = self.default.dawnWarriorModeBackupBarAlpha,
+			},
+		},
+		[8] = {
+			type = "slider",
+			name = "Right",
+			tooltip = "",
+			min = -512,
+			max = 512,
+			step = 1,
+			getFunc = function() return Gnevsmerism:GetDawnWarriorModeRight() end,
+			setFunc = function(value) Gnevsmerism:SetDawnWarriorModeRight(value) end,
+			width = "full",
+			default = self.default.dawnWarriorModeRight,
+		},
+		[9] = {
+			type = "slider",
+			name = "Top",
+			tooltip = "",
+			min = -512,
+			max = 512,
+			step = 1,
+			getFunc = function() return Gnevsmerism:GetDawnWarriorModeTop() end,
+			setFunc = function(value) Gnevsmerism:SetDawnWarriorModeTop(value) end,
+			width = "full",
+			default = self.default.dawnWarriorModeTop,
+		},
+		[10] = {
+			type = "slider",
+			name = "Width",
+			tooltip = "",
+			min = 1,
+			max = 1024,
+			step = 1,
+			getFunc = function() return Gnevsmerism:GetDawnWarriorModeWidth() end,
+			setFunc = function(value) Gnevsmerism:SetDawnWarriorModeWidth(value) end,
+			width = "full",
+			default = self.default.dawnWarriorModeWidth,
+		},		
+		[11] = {
+			type = "slider",
+			name = "Height",
+			tooltip = "",
+			min = 1,
+			max = 1024,
+			step = 1,
+			getFunc = function() return Gnevsmerism:GetDawnWarriorModeHeight() end,
+			setFunc = function(value) Gnevsmerism:SetDawnWarriorModeHeight(value) end,
+			width = "full",
+			default = self.default.dawnWarriorModeHeight,
+		},		
 	}
 
 	local settingsPanelHandle = LibAddOnMenu2:RegisterAddonPanel("Gnevsmerism_Gnevsyrom", settingsPanelData)
 	LibAddOnMenu2:RegisterOptionControls("Gnevsmerism_Gnevsyrom", settingsPanelControlData)
+end
+
+function Gnevsmerism.OnToggleBinding()
+	if Gnevsmerism.savedVariables.dawnWarriorMode == "On" then
+		Gnevsmerism.savedVariables.dawnWarriorMode = "Off"
+	else
+		Gnevsmerism.savedVariables.dawnWarriorMode = "On"
+	end
+	Gnevsmerism:ProcessDawnWarriorMode()
 end
 
 function Gnevsmerism.OnAddOnLoaded(event, addOnName)
